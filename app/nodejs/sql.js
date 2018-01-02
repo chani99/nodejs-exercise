@@ -9,7 +9,7 @@ function connection(callback) {
             host: 'localhost',
             user: 'root',
             password: '',
-            database: 'northwind2'
+            database: 'northwind'
         }
     );
     con.connect(function(err) {

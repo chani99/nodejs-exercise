@@ -1,7 +1,13 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var dal = require('./sql.js');
-var app = express();
 
+
+var app = express();
+debugger;
+console.log('blabla');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/*', function(req, res) {
     dal.getProuducts(function(err, prod) {
@@ -49,5 +55,5 @@ app.post('/products', function(req, res) {
 });
 
 var server = app.listen(8081, function() {
-    console.log('server');
+    console.log('server is on');
 });
