@@ -14,7 +14,7 @@ App.service('appService', function($http) {
 
     this.getNorthwind = function(tableName, onSuccess, onError) {
         $http({
-            url: 'nodejs/api.js',
+            url: 'http://localhost:8081',
             method: 'GET',
             params: {
                 tableName: tableName
