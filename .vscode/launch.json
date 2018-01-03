@@ -5,7 +5,7 @@
         "type": "node",
         "request": "launch",
         "name": "Launch Program",
-        "program": "${workspaceFolder}/app/nodejs/api.js"
+        "program": "${workspaceFolder}/app/nodejs/express.js"
     }
 ]
 }
