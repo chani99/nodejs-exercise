@@ -6,7 +6,9 @@ App.config(function($routeProvider) {
         .when('/products', {
             templateUrl: 'products/products.view.html'
         })
-
+        .when('/shippers', {
+            templateUrl: 'shippers/shippers.view.html'
+        })
     // .otherwise({ redirectTo: 'home' });
 });
 

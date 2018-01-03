@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 
 
 app.get('/', function(req, res) {
-    dal.getProuducts(function(err, prod) {
+    dal.getProuducts(req.query.tableName, function(err, prod) {
         if (err) 
             res.end('error :P!');
         console.log(prod);

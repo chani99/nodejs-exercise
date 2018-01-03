@@ -23,12 +23,13 @@ function connection(callback) {
 }
 
 
-function getProuducts(calkback) {
+function getProuducts(tableName, calkback) {
     connection(function(err, con) {
         if (err) {
             callback('Error connecting to DB:' + err);
         } else {
-            con.query(`select * from products`, function(err, rows) {
+            let sql = `select * from ${tableName}`;
+            con.query(sql , function(err, rows) {
                 if (err) calkback(err);
                     calkback(null, rows);
             });
@@ -43,8 +44,18 @@ function setProuducts(getData, callback){
         if (err) {
             callback('Error connecting to DB:' + err);
         } else {
-            let column="ProductName, QuantityPerUnit, ReorderLevel, SupplierID, UnitPrice, UnitsInStock, UnitsOnOrder";
-            let values=`'${data.ProductName}', '${data.QuantityPerUnit}', ${data.ReorderLevel}, ${data.SupplierID}, ${data.UnitPrice}, ${data.UnitsInStock}, ${data.UnitsOnOrder}`;
+            let column;
+            let values;
+            switch(data.tableName){
+                case "products":
+                column="ProductName, QuantityPerUnit, ReorderLevel, SupplierID, UnitPrice, UnitsInStock, UnitsOnOrder";
+                values=`'${data.ProductName}', '${data.QuantityPerUnit}', ${data.ReorderLevel}, ${data.SupplierID}, ${data.UnitPrice}, ${data.UnitsInStock}, ${data.UnitsOnOrder}`;
+                break;
+                case "shippers":
+                column="CompanyName, Phone";
+                values=`'${data.CompanyName}', ${data.Phone}`;
+                break;s
+            }
             let sql = "INSERT INTO " + data.tableName + " (" + column + ") VALUES (" + values + ")";
             con.query(sql, function (err, result) {
                 if (err) console.log(err);
