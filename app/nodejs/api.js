@@ -4,54 +4,36 @@ var dal = require('./sql.js');
 
 
 var app = express();
-debugger;
-console.log('blabla');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
-app.get('/*', function(req, res) {
+
+app.get('/', function(req, res) {
     dal.getProuducts(function(err, prod) {
-        if (err) {
+        if (err) 
             res.end('error :P!');
-        }
-        res.end(JSON.stringify(prod));
-    })
-
-    console.log('/');
-    res.end('/');
-});
-
-app.get('/shippers', function(req, res) {
-    dal.getShippers(function(err, prod) {
-        if (err) {
-            res.end('error :P!');
-            // throw err;
-        }
-        res.end(JSON.stringify(prod));
+        console.log(prod);
+        res.end(JSON.stringify(prod)); 
+        
     })
 });
 
-app.get('/suppliers', function(req, res) {
-    dal.getSuplliers(function(err, prod) {
+app.post('/', function(req, res) {
+    dal.setProuducts(req.query.data, function(err, ans) {
         if (err) {
             res.end('error :P!');
-            // throw err;
+        } else {
+        // console.log(res);
+        res.end(ans);
         }
-        res.end(JSON.stringify(prod));
+        
     })
 
-});
-app.get('/prouducts', function(req, res) {
-    dal.getProuducts(function(err, prod) {
-        if (err) {
-            res.end('error :P!');
-        }
-        res.end(JSON.stringify(prod));
-    })
-});
-app.post('/products', function(req, res) {
-    console.log('/products');
-    res.end('products');
 });
 
 var server = app.listen(8081, function() {

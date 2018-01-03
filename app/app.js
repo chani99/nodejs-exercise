@@ -21,4 +21,16 @@ App.service('appService', function($http) {
             }
         }).then(onSuccess, onError);
     }
+
+
+    this.setNorthwind = function(data, onSuccess, onError) {
+        $http({
+            url: 'http://localhost:8081',
+            method: 'POST',
+            params: {
+                tableName: data.tableName,
+                data:data
+            }
+        }).then(onSuccess, onError);
+    }
 });

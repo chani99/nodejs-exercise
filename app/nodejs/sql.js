@@ -22,37 +22,6 @@ function connection(callback) {
 
 }
 
-function getShippers(calkback) {
-    connection(function(err, con) {
-        if (err) {
-            callback('Error connecting to DB:' + err);
-        } else {
-            con.query(`select * from shippers`, function(err, rows) {
-                if (err) calkback(err);
-                // console.log(JSON.stringify(rows,null,4));
-                rows.forEach(function(row) {
-                    calkback(null, row);
-                });
-            });
-        }
-    });
-}
-
-function getSuplliers(calkback) {
-    connection(function(err, con) {
-        if (err) {
-            callback('Error connecting to DB:' + err);
-        } else {
-            con.query(`select * from suppliers`, function(err, rows) {
-                if (err) calkback(err);
-                // console.log(JSON.stringify(rows,null,4));
-                rows.forEach(function(row) {
-                    calkback(null, row);
-                });
-            });
-        }
-    });
-}
 
 function getProuducts(calkback) {
     connection(function(err, con) {
@@ -61,18 +30,38 @@ function getProuducts(calkback) {
         } else {
             con.query(`select * from products`, function(err, rows) {
                 if (err) calkback(err);
-                console.log(JSON.stringify(rows, null, 4));
-                rows.forEach(function(row) {
-                    calkback(null, row);
-                });
+                    calkback(null, rows);
             });
         }
     });
 }
 
 
+function setProuducts(getData, callback){
+     data = JSON.parse(getData);
+    connection(function(err, con) {
+        if (err) {
+            callback('Error connecting to DB:' + err);
+        } else {
+            let column="ProductName, QuantityPerUnit, ReorderLevel, SupplierID, UnitPrice, UnitsInStock, UnitsOnOrder";
+            let values=`'${data.ProductName}', '${data.QuantityPerUnit}', ${data.ReorderLevel}, ${data.SupplierID}, ${data.UnitPrice}, ${data.UnitsInStock}, ${data.UnitsOnOrder}`;
+            let sql = "INSERT INTO " + data.tableName + " (" + column + ") VALUES (" + values + ")";
+            con.query(sql, function (err, result) {
+                if (err) console.log(err);
+                callback(null, "1 record inserted");
+              });
+                            }
+                
+        });
+
+}      
 
 
-module.exports.getShippers = getShippers;
-module.exports.getSuplliers = getSuplliers;
+    
+
+// module.exports.getShippers = getShippers;
+// module.exports.getSuplliers = getSuplliers;
 module.exports.getProuducts = getProuducts;
+module.exports.setProuducts = setProuducts;
+
+
