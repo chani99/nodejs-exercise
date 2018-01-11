@@ -30,7 +30,7 @@ App.service('appService', function($http) {
 
     this.setNorthwind = function(data, onSuccess, onError) {
         $http({
-            url: 'http://localhost:8081/product',
+            url: 'http://localhost:8081/'+data.tableName,
             method: 'POST',
             params: {
                 tableName: data.tableName,

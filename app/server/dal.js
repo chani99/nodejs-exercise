@@ -27,9 +27,7 @@ function executeQuery(query, callback) {
             callback(err);
         } else {
             callback(null, rows)
-            /*rows.forEach(function (row) {
-                arr.push(row);
-            });*/
+           
         }
     });
     con.end();

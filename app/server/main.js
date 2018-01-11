@@ -40,7 +40,7 @@ app.get('/products', function (req, res) {
 });
 
 // Listen to '/product' in POST Verb methods
- app.post('/product', function (req, res) {
+ app.post('/products', function (req, res) {
     ProductsCtrl.Put(req.query.data, function(err, ans) {
         if (err) {
             res.end('error!');

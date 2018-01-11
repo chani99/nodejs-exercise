@@ -4,6 +4,10 @@ App.controller('products', function($scope, appService) {
         appService.getNorthwind('products', onSuccess, onError);
     }
 
+      
+
+    
+
     $scope.addProducts = function() {
         let data ={
             tableName: 'products',
@@ -24,6 +28,7 @@ App.controller('products', function($scope, appService) {
         
     }
     function onSuccess(res) {
+        $scope.keys = Object.keys(res.data[0]);
         $scope.data = res.data;
         console.log(res.data);
         
