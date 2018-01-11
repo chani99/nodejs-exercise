@@ -16,16 +16,13 @@ function getProducts(callback) {
 }
 
 function newProduct(data, callback){
+    // let data = JSON.parse(dataa);
 
             let column;
             let values;
                 column="ProductName, QuantityPerUnit, ReorderLevel, SupplierID, UnitPrice, UnitsInStock, UnitsOnOrder";
                 values=`'${data.ProductName}', '${data.QuantityPerUnit}', ${data.ReorderLevel}, ${data.SupplierID}, ${data.UnitPrice}, ${data.UnitsInStock}, ${data.UnitsOnOrder}`;
-                // case "shippers":
-                // column="CompanyName, Phone";
-                // values=`'${data.CompanyName}', ${data.Phone}`;
-                // break;
-        
+          
             let sql = "INSERT INTO `products` (" + column + ") VALUES (" + values + ")";
             dal.executeQuery(sql, function (err, result) {
                 if (err) console.log(err);

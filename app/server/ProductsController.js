@@ -1,4 +1,5 @@
 var bl = require('./bl');
+var models = require('./models');
 
 // CRUD
 function read(callback) {
@@ -12,14 +13,16 @@ function read(callback) {
     })
 }
 
-function put(data, callback) {
-let newProduct = new models.Prudcts(data);
-    bl.products.newProduct(function(err, newProduct) {
+function put(dataa, callback) {
+    let data = JSON.parse(dataa);
+
+let nProduct = new models.Prudcts(data);
+    bl.products.newProduct(data, function(err, res) {
         if (err) {
             callback(err);
         }
 
-        callback(null, custArray);
+        callback(null, res);
     })
 }
 

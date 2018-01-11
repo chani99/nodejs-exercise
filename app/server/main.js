@@ -8,9 +8,9 @@ var ProductsCtrl = require('./ProductsController');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static('../client'));
-app.use('/public', express.static('../client'));
-app.use('/node_modules', express.static('../node_modules'));
+app.use(express.static('./app/client'));
+app.use('/public', express.static('./app/client'));
+app.use('/node_modules', express.static('./app/node_modules'));
 
 
 // Express - to serve the client
@@ -19,7 +19,7 @@ app.use('/node_modules', express.static('../node_modules'));
 // Listen to '/' in GET Verb methods - serve the main Angular index.html file
 app.get('/', function (req, res) {
 
-    fs.readFile('../client/index.html', 'utf8', function (err, data) {
+    fs.readFile('./app/client/index.html', 'utf8', function (err, data) {
         if (err) {
             console.log(err);
         }
